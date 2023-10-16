@@ -23,7 +23,6 @@ class MemberServiceTest {
 
         // when
         memberService.join(member);
-
         Member findMember = memberService.findMember(1L);
 
         // then

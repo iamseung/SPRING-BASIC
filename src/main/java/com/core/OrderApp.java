@@ -5,16 +5,19 @@ import com.core.member.Member;
 import com.core.member.MemberService;
 import com.core.order.Order;
 import com.core.order.OrderService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class OrderApp {
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
+//        AppConfig appConfig = new AppConfig();
+//        MemberService memberService = appConfig.memberService();
+//        OrderService orderService = appConfig.orderService();
 
-        MemberService memberService = appConfig.memberService();
-//        MemberService memberService = new MemberServiceImpl(;
-
-        OrderService orderService = appConfig.orderService();
-//        OrderService orderService = new OrderServiceImpl();
+        // 스프링 컨테이너 생성, 구성 정보를 파라미터로 전달 => AppConfig.class
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+        OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
         
         long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
